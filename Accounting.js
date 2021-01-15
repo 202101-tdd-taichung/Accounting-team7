@@ -60,9 +60,7 @@ export class Accounting {
                 // const middleBudget = this.sameMonth(currentMonth, currentMonth.daysInMonth());
                 const budget = budgets[currentMonth.format('YYYYMM')];
                 if (budget) {
-                    const daysInMonth = currentMonth.daysInMonth()
-                    totalAmount += budget.amount / daysInMonth * currentMonth.daysInMonth();
-                    // return budget.amount / daysInMonth * diffDays;
+                    totalAmount += budget.dailyAmount() * currentMonth.daysInMonth();
                 }
 
             }
