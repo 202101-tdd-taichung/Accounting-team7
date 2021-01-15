@@ -47,10 +47,8 @@ export class Accounting {
             if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
                 const budget = budgets[start.format('YYYYMM')];
                 if (budget) {
-                    const endDateOfFirstMonth = budget.lastDay();
-                    const overlappingDays = endDateOfFirstMonth.diff(start, 'day') + 1;
-                    let firstBudget = budget.amount / start.daysInMonth() * overlappingDays;
-                    totalAmount += firstBudget;
+                    const overlappingDays = budget.lastDay().diff(start, 'day') + 1;
+                    totalAmount += budget.amount / start.daysInMonth() * overlappingDays;
                 }
             } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
                 const endBudget = this.sameMonth(end, end.get('date'));
