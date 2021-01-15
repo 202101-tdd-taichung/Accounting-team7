@@ -32,22 +32,17 @@ export class Accounting {
 
     totalAmount(s, e) {
 
-        // TODO
         let start = dayjs(s);
         let end = dayjs(e);
         if (end.isBefore(start)) {
             return 0;
         }
         const diffDays = end.diff(start, 'day') + 1;
-        // if (diffDays === 0) {
-        //     return this.sameMonth(start);
-        // }
         const sameMonth = start.month() === end.month();
         if (sameMonth) {
             return this.sameMonth(start, diffDays);
         }
         return this.crossMonth(start, end);
-        // return 1;
     }
 
     crossMonth(startDate, endDate) {
@@ -56,12 +51,10 @@ export class Accounting {
         let middleBudget = 0;
         for (let i = 1; i <= middleMonthDiff; i++) {
             const nextMonth = startDate.add(i, 'month');
-            // const nextBudget = this.sameMonth(nextMonth, nextMonth.get('date'));
             const nextBudget = this.sameMonth(nextMonth, nextMonth.daysInMonth());
             middleBudget += nextBudget;
         }
 
-        //
         const startToEnd = dayjs(startDate).daysInMonth();
         const firstMonthDays = startToEnd - startDate.get('date') + 1;
         //計算前後半段的額度
