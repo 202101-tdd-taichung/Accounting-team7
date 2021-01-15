@@ -41,7 +41,6 @@ export class Accounting {
             return this.sameMonth(start, diffDays);
         }
         //先取得中間完整月份的預算
-        const middleMonthDiff = end.diff(start, 'month');
         let totalAmount = 0;
 
         let currentMonth = start;
