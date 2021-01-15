@@ -88,5 +88,11 @@ describe('Accounting service', () => {
         expect(accounting.totalAmount('20210130', '20210401'))
             .toBe(2 + 280 + 3100 + 1);
     });
+
+    it("end is end of month", () => {
+        expect(accounting.totalAmount('20210131', '20210331'))
+            .toBe(1 + 280 + 3100);
+    });
+
 })
 

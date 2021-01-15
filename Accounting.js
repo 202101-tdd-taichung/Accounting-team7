@@ -29,8 +29,11 @@ export class Accounting {
         //先取得中間完整月份的預算
         const middleMonthDiff = end.diff(start, 'month');
         let totalAmount = 0;
-        for (let i = 0; i <= middleMonthDiff + 1; i++) {
-            const currentMonth = start.add(i, 'month');
+
+        // for (let i = 0; i <= middleMonthDiff + 1; i++) {
+        let currentMonth = start;
+        while (end.add(1, 'month').date(1).isAfter(currentMonth)) {
+            // const currentMonth = start.add(i, 'month');
             if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
                 const startToEnd = dayjs(start).daysInMonth();
                 const firstMonthDays = startToEnd - start.get('date') + 1;
@@ -44,11 +47,10 @@ export class Accounting {
                 const nextBudget = this.sameMonth(currentMonth, currentMonth.daysInMonth());
                 totalAmount += nextBudget;
             }
+            currentMonth = currentMonth.add(1, 'month');
         }
         return totalAmount;
 
-        // const endBudget = this.sameMonth(end, end.get('date'));
-        // return endBudget + totalAmount;
     }
 
     sameMonth(month, diffDays) {
