@@ -9,8 +9,8 @@ export class Period {
 
     overlappingDays(budget) {
         let another = new Period(budget.firstDay(), budget.lastDay());
-        let firstDay = budget.firstDay();
-        let lastDay = budget.lastDay();
+        let firstDay = another.start;
+        let lastDay = another.end;
         let overlappingStart = this.start.isAfter(firstDay)
             ? this.start
             : firstDay;
