@@ -33,12 +33,12 @@ export class Accounting {
         let currentMonth = start;
         while (end.add(1, 'month').date(1).isAfter(currentMonth)) {
             if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
-                const originData = yearBudget[start.format('YYYYMM')];
-                if (originData) {
+                const amount = yearBudget[start.format('YYYYMM')];
+                if (amount) {
                     const startToEnd = start.daysInMonth();
                     const firstMonthDays = startToEnd - start.get('date') + 1;
                     const days = start.daysInMonth()
-                    let firstBudget = originData / days * firstMonthDays;
+                    let firstBudget = amount / days * firstMonthDays;
                     totalAmount += firstBudget;
                 }
             } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
