@@ -59,7 +59,8 @@ export class Accounting {
         while (end.add(1, 'month').date(1).isAfter(currentMonth)) {
             const budget = yearBudget[currentMonth.format('YYYYMM')];
             if (budget) {
-                let overlappingDays = this.overlappingDays(budget, start, end);
+                let period = new Period(start, end);
+                let overlappingDays = this.overlappingDays(budget, start, end, period);
                 totalAmount += budget.dailyAmount() * overlappingDays;
             }
             currentMonth = currentMonth.add(1, 'month');
@@ -68,8 +69,7 @@ export class Accounting {
 
     }
 
-    overlappingDays(budget, start, end) {
-        let period = new Period(start, end);
+    overlappingDays(budget, start, end, period) {
         if (budget.yearMonth === period.start.format('YYYYMM')) {
             return budget.lastDay().diff(period.start, 'day') + 1;
         } else if (budget.yearMonth === period.end.format('YYYYMM')) {
