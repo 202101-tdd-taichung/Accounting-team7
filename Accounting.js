@@ -23,8 +23,7 @@ export class Accounting {
             return 0;
         }
         const diffDays = end.diff(start, 'day') + 1;
-        const sameMonth = start.month() === end.month();
-        if (sameMonth) {
+        if (start.month() === end.month()) {
             return this.sameMonth(start, diffDays);
         }
         //先取得中間完整月份的預算
