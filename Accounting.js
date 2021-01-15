@@ -49,7 +49,7 @@ export class Accounting {
                 let overlappingDays;
                 if (budget.yearMonth === start.format('YYYYMM')) {
                     overlappingDays = budget.lastDay().diff(start, 'day') + 1;
-                } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
+                } else if (budget.yearMonth === end.format('YYYYMM')) {
                     overlappingDays = end.diff(budget.firstDay(), 'day') + 1;
                 } else {
                     overlappingDays = budget.lastDay().diff(budget.firstDay(), 'day') + 1;
