@@ -49,7 +49,7 @@ export class Accounting {
             if (budget) {
                 let period = new Period(start, end);
                 let another = new Period(budget.firstDay(), budget.lastDay());
-                totalAmount += budget.dailyAmount() * period.overlappingDays(budget, another);
+                totalAmount += budget.dailyAmount() * period.overlappingDays(another);
             }
             currentMonth = currentMonth.add(1, 'month');
         }

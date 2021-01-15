@@ -7,7 +7,7 @@ export class Period {
         this.end = end;
     }
 
-    overlappingDays(budget, another) {
+    overlappingDays(another) {
         let overlappingEnd = this.end.isBefore(another.end)
             ? this.end
             : another.end;
