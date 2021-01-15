@@ -44,14 +44,14 @@ export class Accounting {
         const middleMonthDiff = end.diff(start, 'month');
         let totalAmount = 0;
         for (let i = 0; i <= middleMonthDiff; i++) {
-            const nextMonth = start.add(i, 'month');
-            if (nextMonth.format('YYYYMM') === start.format('YYYYMM')) {
+            const currentMonth = start.add(i, 'month');
+            if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
                 const startToEnd = dayjs(start).daysInMonth();
                 const firstMonthDays = startToEnd - start.get('date') + 1;
                 const firstBudget = this.sameMonth(start, firstMonthDays);
                 totalAmount += firstBudget;
             } else {
-                const nextBudget = this.sameMonth(nextMonth, nextMonth.daysInMonth());
+                const nextBudget = this.sameMonth(currentMonth, currentMonth.daysInMonth());
                 totalAmount += nextBudget;
             }
 
