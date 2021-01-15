@@ -52,8 +52,7 @@ export class Accounting {
                     totalAmount += budget.dailyAmount() * overlappingDays;
                 } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
                     let overlappingDays = end.diff(end.date(1), 'day') + 1;
-                    let overlappingAmountOfLastMonth = budget.dailyAmount() * overlappingDays;
-                    totalAmount += overlappingAmountOfLastMonth;
+                    totalAmount += budget.dailyAmount() * overlappingDays;
                 } else {
                     let overlappingDaysOfMiddleMonth = currentMonth.endOf('month').diff(currentMonth.date(1), 'day') + 1;
                     let overlappingAmountOfMiddleMonth = budget.amount / currentMonth.daysInMonth() * overlappingDaysOfMiddleMonth;
