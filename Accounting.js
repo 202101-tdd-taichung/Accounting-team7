@@ -37,8 +37,7 @@ export class Accounting {
                 if (amount) {
                     const startToEnd = start.daysInMonth();
                     const firstMonthDays = startToEnd - start.get('date') + 1;
-                    const days = start.daysInMonth()
-                    let firstBudget = amount / days * firstMonthDays;
+                    let firstBudget = amount / start.daysInMonth() * firstMonthDays;
                     totalAmount += firstBudget;
                 }
             } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
