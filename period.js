@@ -8,10 +8,7 @@ export class Period {
     }
 
     overlappingDays(another) {
-        if (this.end.isBefore(this.start)) {
-            return 0;
-        }
-        if (this.end.isBefore(another.start) || this.start.isAfter(another.end)) {
+        if (this.isInvalid() || this.hasNoOverlap(another)) {
             return 0;
         }
         let overlappingEnd = this.end.isBefore(another.end)
@@ -24,4 +21,11 @@ export class Period {
         return overlappingEnd.diff(overlappingStart, 'day') + 1;
     }
 
+    hasNoOverlap(another) {
+        return this.end.isBefore(another.start) || this.start.isAfter(another.end);
+    }
+
+    isInvalid() {
+        return this.end.isBefore(this.start);
+    }
 }
