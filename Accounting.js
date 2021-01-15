@@ -44,10 +44,10 @@ export class Accounting {
         }
         let totalAmount = 0;
         let currentMonth = start;
+        let period = new Period(start, end);
         while (end.date(1).add(1, 'month').isAfter(currentMonth)) {
             const budget = budgets[currentMonth.format('YYYYMM')];
             if (budget) {
-                let period = new Period(start, end);
                 totalAmount += budget.overlappingAmount(period);
             }
             currentMonth = currentMonth.add(1, 'month');
