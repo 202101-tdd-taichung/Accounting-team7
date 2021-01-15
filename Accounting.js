@@ -30,17 +30,21 @@ export class Accounting {
         const middleMonthDiff = end.diff(start, 'month');
         let totalAmount = 0;
 
-        // for (let i = 0; i <= middleMonthDiff + 1; i++) {
         let currentMonth = start;
         while (end.add(1, 'month').date(1).isAfter(currentMonth)) {
-            // const currentMonth = start.add(i, 'month');
             if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
                 const startToEnd = dayjs(start).daysInMonth();
                 const firstMonthDays = startToEnd - start.get('date') + 1;
-                const firstBudget = this.sameMonth(start, firstMonthDays);
-                totalAmount += firstBudget;
+                // let firstBudget = this.sameMonth(start, firstMonthDays);
+                let firstBudget = 0;
+                const days = dayjs(start).daysInMonth()
+                const originData = yearBudget[start.format('YYYYMM')];
+                if (originData) {
+                    firstBudget = originData / days * firstMonthDays;
+                    totalAmount += firstBudget;
+                }
+
             } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
-                //計算前後半段的額度
                 const endBudget = this.sameMonth(end, end.get('date'));
                 totalAmount += endBudget;
             } else {
