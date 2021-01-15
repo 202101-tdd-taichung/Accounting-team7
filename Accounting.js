@@ -51,10 +51,10 @@ export class Accounting {
                     const overlappingDays = budget.lastDay().diff(start, 'day') + 1;
                     totalAmount += budget.dailyAmount() * overlappingDays;
                 } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
-                    let overlappingDays = end.diff(end.date(1), 'day') + 1;
+                    const overlappingDays = end.diff(end.date(1), 'day') + 1;
                     totalAmount += budget.dailyAmount() * overlappingDays;
                 } else {
-                    let overlappingDays = currentMonth.endOf('month').diff(currentMonth.date(1), 'day') + 1;
+                    const overlappingDays = currentMonth.endOf('month').diff(currentMonth.date(1), 'day') + 1;
                     totalAmount += budget.dailyAmount() * overlappingDays;
                 }
             }
