@@ -44,21 +44,21 @@ export class Accounting {
         return this.crossMonth(start, end);
     }
 
-    crossMonth(startDate, endDate) {
+    crossMonth(start, end) {
         //先取得中間完整月份的預算
-        const middleMonthDiff = endDate.diff(startDate, 'month');
+        const middleMonthDiff = end.diff(start, 'month');
         let middleBudget = 0;
         for (let i = 1; i <= middleMonthDiff; i++) {
-            const nextMonth = startDate.add(i, 'month');
+            const nextMonth = start.add(i, 'month');
             const nextBudget = this.sameMonth(nextMonth, nextMonth.daysInMonth());
             middleBudget += nextBudget;
         }
 
-        const startToEnd = dayjs(startDate).daysInMonth();
-        const firstMonthDays = startToEnd - startDate.get('date') + 1;
+        const startToEnd = dayjs(start).daysInMonth();
+        const firstMonthDays = startToEnd - start.get('date') + 1;
         //計算前後半段的額度
-        const firstBudget = this.sameMonth(startDate, firstMonthDays);
-        const endBudget = this.sameMonth(endDate, endDate.get('date'));
+        const firstBudget = this.sameMonth(start, firstMonthDays);
+        const endBudget = this.sameMonth(end, end.get('date'));
 
         return firstBudget + endBudget + middleBudget;
     }
