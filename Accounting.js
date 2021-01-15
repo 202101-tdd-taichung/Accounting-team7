@@ -28,6 +28,18 @@ const yearBudget = {
 //     "202112": 31
 // }
 
+class Period {
+    start;
+    end;
+
+    constructor(start, end) {
+        this.start = start;
+        this.end = end;
+
+    }
+
+}
+
 export class Accounting {
 
     totalAmount(s, e) {
@@ -57,6 +69,7 @@ export class Accounting {
     }
 
     overlappingDays(budget, start, end) {
+        let period = new Period(start, end);
         if (budget.yearMonth === start.format('YYYYMM')) {
             return budget.lastDay().diff(start, 'day') + 1;
         } else if (budget.yearMonth === end.format('YYYYMM')) {
