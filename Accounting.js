@@ -33,9 +33,7 @@ export class Accounting {
 
     totalAmount(s, e) {
 
-        let start = dayjs(s);
-        let end = dayjs(e);
-        let period = new Period(start, end);
+        let period = new Period(dayjs(s), dayjs(e));
         let totalAmount = 0;
         for (let key in budgets) {
             let budget = budgets[key];
