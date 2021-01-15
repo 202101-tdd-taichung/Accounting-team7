@@ -46,9 +46,7 @@ export class Accounting {
         let period = new Period(start, end);
         for (const key in budgets) {
             const budget = budgets[key];
-            if (budget) {
-                totalAmount += budget.overlappingAmount(period);
-            }
+            totalAmount += budget.overlappingAmount(period);
         }
 
         return totalAmount;
