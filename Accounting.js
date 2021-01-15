@@ -40,10 +40,8 @@ export class Accounting {
         const diffDays = end.diff(start, 'day') + 1;
         if (start.month() === end.month()) {
             return this.sameMonth(start, diffDays);
-        }        //先取得中間完整月份的預算
-        const middleMonthDiff = end.diff(start, 'month');
+        }
         let totalAmount = 0;
-        // for (let i = 0; i <= middleMonthDiff + 1; i++) {
         let currentMonth = start;
         while (end.date(1).add(1, 'month').isAfter(currentMonth)) {
             if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
