@@ -46,7 +46,7 @@ export class Accounting {
         for (let i = 0; i <= middleMonthDiff; i++) {
             const currentMonth = start.add(i, 'month');
             if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
-                const startToEnd = dayjs(start).daysInMonth();
+                const startToEnd = start.daysInMonth();
                 const firstMonthDays = startToEnd - start.get('date') + 1;
                 const firstBudget = this.sameMonth(start, firstMonthDays);
                 totalAmount += firstBudget;
