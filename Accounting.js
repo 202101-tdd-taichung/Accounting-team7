@@ -53,7 +53,7 @@ export class Accounting {
             } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
                 const budget = budgets[end.format('YYYYMM')];
                 if (budget) {
-                    totalAmount += budget.amount / end.daysInMonth() * end.get('date');
+                    totalAmount += budget.dailyAmount() * end.get('date');
                 }
             } else {
                 const middleBudget = this.sameMonth(currentMonth, currentMonth.daysInMonth());
