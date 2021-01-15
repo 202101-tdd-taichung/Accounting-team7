@@ -49,7 +49,8 @@ export class Accounting {
             const budget = yearBudget[currentMonth.format('YYYYMM')];
             if (budget) {
                 let period = new Period(start, end);
-                let overlappingDays = period.overlappingDays(budget);
+                let another = new Period(budget.firstDay(), budget.lastDay());
+                let overlappingDays = period.overlappingDays(budget, another);
                 totalAmount += budget.dailyAmount() * overlappingDays;
             }
             currentMonth = currentMonth.add(1, 'month');
