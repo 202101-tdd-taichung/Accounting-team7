@@ -34,9 +34,6 @@ export class Accounting {
     totalAmount(s, e) {
         let start = dayjs(s);
         let end = dayjs(e);
-        if (end.isBefore(start)) {
-            return 0;
-        }
         let totalAmount = 0;
 
         let period = new Period(start, end);
