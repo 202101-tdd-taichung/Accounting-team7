@@ -73,11 +73,15 @@ describe('Accounting service', () => {
     });
 
     it("start > end", () => {
-        expect(accounting.totalAmount('20210902', '20210901')).toBe(-1);
+        expect(accounting.totalAmount('20210902', '20210901')).toBe(0);
     });
 
     it("cross month", () => {
         expect(accounting.totalAmount('20210131', '20210201')).toBe(11);
+    });
+
+    it("cross multi month", () => {
+        expect(accounting.totalAmount('20210130', '20210301')).toBe(2 + 280 +100);
     });
 })
 
