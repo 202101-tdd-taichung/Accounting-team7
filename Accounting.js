@@ -47,8 +47,15 @@ export class Accounting {
             if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
                 const startToEnd = start.daysInMonth();
                 const firstMonthDays = startToEnd - start.get('date') + 1;
-                const firstBudget = this.sameMonth(start, firstMonthDays);
-                totalAmount += firstBudget;
+
+                const budget = budgets[start.format('YYYYMM')];
+                if (budget) {
+                    const daysInMonth = start.daysInMonth()
+                    let firstBudget = budget.amount / daysInMonth * firstMonthDays;
+                    totalAmount += firstBudget;
+                    // return budget.amount / daysInMonth * diffDays;
+                }
+                // const firstBudget = this.sameMonth(start, firstMonthDays);
             } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
                 const endBudget = this.sameMonth(end, end.get('date'));
                 totalAmount += endBudget;
