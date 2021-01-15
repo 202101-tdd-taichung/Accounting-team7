@@ -37,37 +37,12 @@ export class Accounting {
         if (end.isBefore(start)) {
             return 0;
         }
-        const diffDays = end.diff(start, 'day') + 1;
-        if (start.month() === end.month()) {
-            return this.sameMonth(start, diffDays);
-        }
-        //先取得中間完整月份的預算
         let totalAmount = 0;
 
-        let currentMonth = start;
-        // while (end.add(1, 'month').date(1).isAfter(currentMonth)) {
         let period = new Period(start, end);
         for (let key in budgets) {
             totalAmount += budgets[key].overlappingAmount(period);
         }
-        // const budget = budgets[currentMonth.format('YYYYMM')];
-        // if (budget) {
-        //     let period = new Period(start, end);
-        //     totalAmount += budget.overlappingAmount(period);
-        // }
-        // currentMonth = currentMonth.add(1, 'month');
-        // }
         return totalAmount;
-
-    }
-
-    sameMonth(month, diffDays) {
-        const budget = budgets[month.format('YYYYMM')];
-        if (budget) {
-            const days = dayjs(month).daysInMonth()
-            return budget.amount / days * diffDays;
-        } else {
-            return 0;
-        }
     }
 }
