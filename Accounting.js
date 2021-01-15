@@ -70,6 +70,8 @@ export class Accounting {
 
     overlappingDays(budget, start, end) {
         let period = new Period(start, end);
+        start = period.start;
+        end = period.end;
         if (budget.yearMonth === start.format('YYYYMM')) {
             return budget.lastDay().diff(start, 'day') + 1;
         } else if (budget.yearMonth === end.format('YYYYMM')) {
