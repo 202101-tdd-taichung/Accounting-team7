@@ -63,12 +63,9 @@ export class Accounting {
             } else {
                 const budget = yearBudget[currentMonth.format('YYYYMM')];
                 if (budget) {
-                    const days = currentMonth.daysInMonth()
                     let overlappingDaysOfMiddleMonth = currentMonth.endOf('month').diff(currentMonth.date(1), 'day') + 1;
-                    let overlappingAmountOfMiddleMonth = budget.amount / days * overlappingDaysOfMiddleMonth;
+                    let overlappingAmountOfMiddleMonth = budget.amount / currentMonth.daysInMonth() * overlappingDaysOfMiddleMonth;
                     totalAmount += overlappingAmountOfMiddleMonth;
-                    // const nextBudget = this.sameMonth(currentMonth, currentMonth.daysInMonth());
-                    // totalAmount += nextBudget;
                 }
             }
             currentMonth = currentMonth.add(1, 'month');
