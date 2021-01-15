@@ -34,6 +34,9 @@ export class Accounting {
     totalAmount(s, e) {
 
         let period = new Period(dayjs(s), dayjs(e));
+        return Object.keys(budgets)
+            .map(k => budgets[k].overlappingAmount(period))
+            .reduce((x, y) => x + y, 0);
         let totalAmount = 0;
         for (let key in budgets) {
             let budget = budgets[key];
