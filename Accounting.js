@@ -54,16 +54,12 @@ export class Accounting {
                 const endBudget = this.sameMonth(end, end.get('date'));
                 totalAmount += endBudget;
             } else {
-                const nextBudget = this.sameMonth(currentMonth, currentMonth.daysInMonth());
-                totalAmount += nextBudget;
+                const middleBudget = this.sameMonth(currentMonth, currentMonth.daysInMonth());
+                totalAmount += middleBudget;
             }
-
         }
 
         return totalAmount;
-
-        // return endBudget + totalAmount;
-        // return firstBudget + endBudget + totalAmount;
     }
 
     sameMonth(month, diffDays) {
