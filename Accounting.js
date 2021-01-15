@@ -46,23 +46,17 @@ export class Accounting {
         let currentMonth = start;
         while (end.add(1, 'month').date(1).isAfter(currentMonth)) {
             const budget = yearBudget[currentMonth.format('YYYYMM')];
-            if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
-                if (budget) {
+            if (budget) {
+                if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
                     const endOfStartMonth = start.endOf('month');
                     const overlappingDaysOfFirstMonth = endOfStartMonth.diff(start, 'day') + 1;
                     let firstBudget = budget.amount / start.daysInMonth() * overlappingDaysOfFirstMonth;
                     totalAmount += firstBudget;
-                }
-            } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
-                // const budget = yearBudget[end.format('YYYYMM')];
-                if (budget) {
+                } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
                     let overlappingDaysOfLastMonth = end.diff(end.date(1), 'day') + 1;
                     let overlappingAmountOfLastMonth = budget.amount / end.daysInMonth() * overlappingDaysOfLastMonth;
                     totalAmount += overlappingAmountOfLastMonth;
-                }
-            } else {
-                // const budget = yearBudget[currentMonth.format('YYYYMM')];
-                if (budget) {
+                } else {
                     let overlappingDaysOfMiddleMonth = currentMonth.endOf('month').diff(currentMonth.date(1), 'day') + 1;
                     let overlappingAmountOfMiddleMonth = budget.amount / currentMonth.daysInMonth() * overlappingDaysOfMiddleMonth;
                     totalAmount += overlappingAmountOfMiddleMonth;
