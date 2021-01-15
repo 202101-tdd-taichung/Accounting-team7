@@ -45,24 +45,24 @@ export class Accounting {
         let currentMonth = start;
         while (end.date(1).add(1, 'month').isAfter(currentMonth)) {
             const budget = budgets[currentMonth.format('YYYYMM')];
-            if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
-                if (budget) {
-                    const overlappingDays = budget.lastDay().diff(start, 'day') + 1;
-                    totalAmount += budget.dailyAmount() * overlappingDays;
-                }
-            } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
-                // const budget = budgets[currentMonth.format('YYYYMM')];
-                if (budget) {
-                    let overlappingDays = end.diff(budget.firstDay(), 'day') + 1;
-                    totalAmount += budget.dailyAmount() * overlappingDays;
-                }
-            } else {
-                // const budget = budgets[currentMonth.format('YYYYMM')];
-                if (budget) {
-                    let overlappingDays = budget.lastDay().diff(budget.firstDay(), 'day') + 1;
-                    totalAmount += budget.dailyAmount() * overlappingDays;
-                }
+            if (budget) {
+                if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
+                    if (budget) {
+                        const overlappingDays = budget.lastDay().diff(start, 'day') + 1;
+                        totalAmount += budget.dailyAmount() * overlappingDays;
+                    }
+                } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
+                    if (budget) {
+                        let overlappingDays = end.diff(budget.firstDay(), 'day') + 1;
+                        totalAmount += budget.dailyAmount() * overlappingDays;
+                    }
+                } else {
+                    if (budget) {
+                        let overlappingDays = budget.lastDay().diff(budget.firstDay(), 'day') + 1;
+                        totalAmount += budget.dailyAmount() * overlappingDays;
+                    }
 
+                }
             }
             currentMonth = currentMonth.add(1, 'month');
         }
