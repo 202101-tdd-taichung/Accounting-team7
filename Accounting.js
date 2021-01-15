@@ -42,20 +42,26 @@ export class Accounting {
             return this.sameMonth(start, diffDays);
         }        //先取得中間完整月份的預算
         const middleMonthDiff = end.diff(start, 'month');
-        let middleBudget = 0;
-        for (let i = 1; i <= middleMonthDiff; i++) {
+        let totalAmount = 0;
+        for (let i = 0; i <= middleMonthDiff; i++) {
             const nextMonth = start.add(i, 'month');
-            const nextBudget = this.sameMonth(nextMonth, nextMonth.daysInMonth());
-            middleBudget += nextBudget;
+            if (nextMonth.format('YYYYMM') === start.format('YYYYMM')) {
+                const startToEnd = dayjs(start).daysInMonth();
+                const firstMonthDays = startToEnd - start.get('date') + 1;
+                const firstBudget = this.sameMonth(start, firstMonthDays);
+                totalAmount += firstBudget;
+            } else {
+                const nextBudget = this.sameMonth(nextMonth, nextMonth.daysInMonth());
+                totalAmount += nextBudget;
+            }
+
         }
 
-        const startToEnd = dayjs(start).daysInMonth();
-        const firstMonthDays = startToEnd - start.get('date') + 1;
         //計算前後半段的額度
-        const firstBudget = this.sameMonth(start, firstMonthDays);
         const endBudget = this.sameMonth(end, end.get('date'));
 
-        return firstBudget + endBudget + middleBudget;
+        return endBudget + totalAmount;
+        // return firstBudget + endBudget + totalAmount;
     }
 
     sameMonth(month, diffDays) {
