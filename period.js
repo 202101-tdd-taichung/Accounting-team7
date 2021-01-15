@@ -8,19 +8,21 @@ export class Period {
     }
 
     overlappingDays(budget) {
+        let overlappingEnd;
+        let overlappingStart;
         if (budget.yearMonth === this.start.format('YYYYMM')) {
-            let overlappingEnd = budget.lastDay();
-            let overlappingStart = this.start;
-            return overlappingEnd.diff(overlappingStart, 'day') + 1;
+            overlappingEnd = budget.lastDay();
+            overlappingStart = this.start;
+            // return overlappingEnd.diff(overlappingStart, 'day') + 1;
         } else if (budget.yearMonth === this.end.format('YYYYMM')) {
-            let overlappingEnd = this.end;
-            let overlappingStart = budget.firstDay();
-            return overlappingEnd.diff(overlappingStart, 'day') + 1;
+            overlappingEnd = this.end;
+            overlappingStart = budget.firstDay();
+            // return overlappingEnd.diff(overlappingStart, 'day') + 1;
         } else {
-            let overlappingEnd = budget.lastDay();
-            let overlappingStart = budget.firstDay();
-            return overlappingEnd.diff(overlappingStart, 'day') + 1;
+            overlappingEnd = budget.lastDay();
+            overlappingStart = budget.firstDay();
         }
+        return overlappingEnd.diff(overlappingStart, 'day') + 1;
     }
 
 }
