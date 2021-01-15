@@ -48,7 +48,7 @@ export class Accounting {
                 const budget = budgets[start.format('YYYYMM')];
                 if (budget) {
                     const overlappingDays = budget.lastDay().diff(start, 'day') + 1;
-                    totalAmount += budget.amount / start.daysInMonth() * overlappingDays;
+                    totalAmount += budget.amount / budget.lastDay().daysInMonth() * overlappingDays;
                 }
             } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
                 const endBudget = this.sameMonth(end, end.get('date'));
