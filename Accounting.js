@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import {Budget} from "./Budget";
+import {Period} from "./period";
 
 const budgets = {
     "202101": new Budget("202101", 31),
@@ -27,18 +28,6 @@ const budgets = {
 //     "202111": 3000,
 //     "202112": 31
 // }
-
-class Period {
-    start;
-    end;
-
-    constructor(start, end) {
-        this.start = start;
-        this.end = end;
-
-    }
-
-}
 
 export class Accounting {
 
