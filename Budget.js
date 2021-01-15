@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import {Period} from "./period";
 
 export class Budget {
     yearMonth;
@@ -23,5 +24,9 @@ export class Budget {
 
     dailyAmount() {
         return this.amount / this.totalDays();
+    }
+
+    creatPeriod() {
+        return new Period(this.firstDay(), this.lastDay());
     }
 }
