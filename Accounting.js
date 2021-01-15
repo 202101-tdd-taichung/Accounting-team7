@@ -35,11 +35,8 @@ export class Accounting {
 
         let start = dayjs(s);
         let end = dayjs(e);
-        if (end.isBefore(start)) {
-            return 0;
-        }
-        let totalAmount = 0;
         let period = new Period(start, end);
+        let totalAmount = 0;
         for (let key in budgets) {
             let budget = budgets[key];
             let overlappingAmount = budget.overlappingAmount(period);
