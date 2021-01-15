@@ -67,11 +67,12 @@ export class Accounting {
     }
 
     sameMonth(month, diffDays) {
-        const days = dayjs(month).daysInMonth()
         const budget = yearBudget[month.format('YYYYMM')];
-        if (!budget) {
+        if (budget) {
+            const days = dayjs(month).daysInMonth()
+            return budget.amount / days * diffDays;
+        } else {
             return 0;
         }
-        return budget.amount / days * diffDays;
     }
 }
