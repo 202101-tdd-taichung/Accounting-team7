@@ -33,7 +33,19 @@ export class Accounting {
         if (sameMonth) {
             return this.sameMonth(start, diffDays);
         }
-        return 1;
+        return this.crossMonth(start, end);
+       // return 1;
+    }
+
+    crossMonth(startMonth, endMonth) {
+        //
+        const startToEnd = dayjs(startMonth).daysInMonth();
+        const firstMonthDays = startToEnd - startMonth.get('date') +1;
+        //計算前後半段的額度
+        const firstBudget =  this.sameMonth(startMonth , firstMonthDays);
+        const endBudget =  this.sameMonth(endMonth , endMonth.get('date'));
+
+        return firstBudget + endBudget;
     }
 
     sameMonth(month, diffDays) {

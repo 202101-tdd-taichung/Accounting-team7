@@ -75,5 +75,9 @@ describe('Accounting service', () => {
     it("start > end", () => {
         expect(accounting.totalAmount('20210902', '20210901')).toBe(-1);
     });
+
+    it("cross month", () => {
+        expect(accounting.totalAmount('20210131', '20210201')).toBe(11);
+    });
 })
 
