@@ -1,18 +1,32 @@
 import dayjs from "dayjs";
+import {Budget} from "./Budget";
 
 const yearBudget = {
-    "202101": 31,
-    "202102": 280,
-    "202103": 3100,
-    "202104": 30,
-    "202105": 310,
-    "202106": 3000,
-    "202107": 0,
-    "202109": 30,
-    "202110": 310,
-    "202111": 3000,
-    "202112": 31
+    "202101": new Budget("202101", 31),
+    "202102": new Budget("202102", 280),
+    "202103": new Budget("202103", 3100),
+    "202104": new Budget("202104", 30),
+    "202105": new Budget("202105", 310),
+    "202106": new Budget("202106", 3000),
+    "202107": new Budget("202107", 0),
+    "202109": new Budget("202109", 30),
+    "202110": new Budget("202110", 310),
+    "202111": new Budget("202111", 3000),
+    "202112": new Budget("202112", 31),
 }
+// const yearBudget = {
+//     "202101": 31,
+//     "202102": 280,
+//     "202103": 3100,
+//     "202104": 30,
+//     "202105": 310,
+//     "202106": 3000,
+//     "202107": 0,
+//     "202109": 30,
+//     "202110": 310,
+//     "202111": 3000,
+//     "202112": 31
+// }
 
 export class Accounting {
 
@@ -33,13 +47,11 @@ export class Accounting {
         let currentMonth = start;
         while (end.add(1, 'month').date(1).isAfter(currentMonth)) {
             if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
-                const amount = yearBudget[start.format('YYYYMM')];
-                if (amount) {
-                    // const startToEnd = start.daysInMonth();
-                    // const firstMonthDays = startToEnd - start.get('date') + 1;
+                const budget = yearBudget[start.format('YYYYMM')];
+                if (budget) {
                     const endOfStartMonth = start.endOf('month');
-                    const firstMonthDays = endOfStartMonth.diff(start, 'day') + 1;
-                    let firstBudget = amount / start.daysInMonth() * firstMonthDays;
+                    const overlappingDaysOfFirstMonth = endOfStartMonth.diff(start, 'day') + 1;
+                    let firstBudget = budget.amount / start.daysInMonth() * overlappingDaysOfFirstMonth;
                     totalAmount += firstBudget;
                 }
             } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
@@ -57,10 +69,10 @@ export class Accounting {
 
     sameMonth(month, diffDays) {
         const days = dayjs(month).daysInMonth()
-        const originData = yearBudget[month.format('YYYYMM')];
-        if (!originData) {
+        const budget = yearBudget[month.format('YYYYMM')];
+        if (!budget) {
             return 0;
         }
-        return originData / days * diffDays;
+        return budget.amount / days * diffDays;
     }
 }
