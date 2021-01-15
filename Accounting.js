@@ -38,27 +38,15 @@ export class Accounting {
         if (end.isBefore(start)) {
             return 0;
         }
-        const diffDays = end.diff(start, 'day') + 1;
-        if (start.month() === end.month()) {
-            return this.sameMonth(start, diffDays);
-        }
         let totalAmount = 0;
         let period = new Period(start, end);
-        for (const key in budgets) {
-            const budget = budgets[key];
-            totalAmount += budget.overlappingAmount(period);
+        for (let key in budgets) {
+            let budget = budgets[key];
+            let overlappingAmount = budget.overlappingAmount(period);
+            totalAmount += overlappingAmount;
         }
 
         return totalAmount;
     }
 
-    sameMonth(month, diffDays) {
-        const budget = budgets[month.format('YYYYMM')];
-        if (budget) {
-            const daysInMonth = dayjs(month).daysInMonth()
-            return budget.amount / daysInMonth * diffDays;
-        } else {
-            return 0;
-        }
-    }
 }
