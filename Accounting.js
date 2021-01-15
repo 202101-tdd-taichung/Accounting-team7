@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import {Budget} from "./Budget";
 import {Period} from "./period";
 
-const yearBudget = {
+const budgets = {
     "202101": new Budget("202101", 31),
     "202102": new Budget("202102", 280),
     "202103": new Budget("202103", 3100),
@@ -15,7 +15,7 @@ const yearBudget = {
     "202111": new Budget("202111", 3000),
     "202112": new Budget("202112", 31),
 }
-// const yearBudget = {
+// const budgets = {
 //     "202101": 31,
 //     "202102": 280,
 //     "202103": 3100,
@@ -45,24 +45,24 @@ export class Accounting {
         let totalAmount = 0;
 
         let currentMonth = start;
-        while (end.add(1, 'month').date(1).isAfter(currentMonth)) {
-            const budget = yearBudget[currentMonth.format('YYYYMM')];
-            if (budget) {
-                let period = new Period(start, end);
-                totalAmount += this.overlappingAmount(budget, period);
-            }
-            currentMonth = currentMonth.add(1, 'month');
+        // while (end.add(1, 'month').date(1).isAfter(currentMonth)) {
+        let period = new Period(start, end);
+        for (let key in budgets) {
+            totalAmount += budgets[key].overlappingAmount(period);
         }
+        // const budget = budgets[currentMonth.format('YYYYMM')];
+        // if (budget) {
+        //     let period = new Period(start, end);
+        //     totalAmount += budget.overlappingAmount(period);
+        // }
+        // currentMonth = currentMonth.add(1, 'month');
+        // }
         return totalAmount;
 
     }
 
-    overlappingAmount(budget, period) {
-        return budget.dailyAmount() * period.overlappingDays(budget.creatPeriod());
-    }
-
     sameMonth(month, diffDays) {
-        const budget = yearBudget[month.format('YYYYMM')];
+        const budget = budgets[month.format('YYYYMM')];
         if (budget) {
             const days = dayjs(month).daysInMonth()
             return budget.amount / days * diffDays;

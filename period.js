@@ -8,6 +8,9 @@ export class Period {
     }
 
     overlappingDays(another) {
+        if (this.end.isBefore(another.start) || this.start.isAfter(another.end)) {
+            return 0;
+        }
         let overlappingStart = this.start.isAfter(another.start)
             ? this.start
             : another.start;
