@@ -18,6 +18,6 @@ export class Budget {
     }
 
     totalDays() {
-        return this.lastDay().daysInMonth();
+        return this.firstDay().daysInMonth();
     }
 }
