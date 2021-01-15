@@ -48,10 +48,8 @@ export class Accounting {
             const budget = yearBudget[currentMonth.format('YYYYMM')];
             if (budget) {
                 if (currentMonth.format('YYYYMM') === start.format('YYYYMM')) {
-                    // let firstDayOfBudget = budget.firstDay();
-                    const endOfStartMonth = budget.lastDay();
-                    const overlappingDaysOfFirstMonth = endOfStartMonth.diff(start, 'day') + 1;
-                    let firstBudget = budget.amount / endOfStartMonth.daysInMonth() * overlappingDaysOfFirstMonth;
+                    const overlappingDaysOfFirstMonth = budget.lastDay().diff(start, 'day') + 1;
+                    let firstBudget = budget.amount / budget.lastDay().daysInMonth() * overlappingDaysOfFirstMonth;
                     totalAmount += firstBudget;
                 } else if (currentMonth.format('YYYYMM') === end.format('YYYYMM')) {
                     let overlappingDaysOfLastMonth = end.diff(end.date(1), 'day') + 1;
